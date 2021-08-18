@@ -6,3 +6,5 @@ router.get("/login", votantesController.getLogin);
 router.get("/registro", votantesController.getRegistro);
 
 module.exports = router;
+
+//Probando merge
