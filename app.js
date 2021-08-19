@@ -18,16 +18,16 @@ const usuariosModel = require("./models/usuariosModel");
 //models
 
 //routes
-const indexRoute = require("./routes/index");
-const votantesRoute = require("./routes/votantes");
+// const indexRoute = require("./routes/index");
+const Login = require("./routes/login");
 const administradorRoute = require("./routes/administrador");
+const Votantes = require("./routes/votantes");
+
 //routes
 
 //controladores
 const errorController = require("./controllers/errorController");
 //controladores
-
-
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -53,9 +53,10 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 
 //middlewares
+// app.use(indexRoute);
 app.use(administradorRoute);
-app.use(votantesRoute);
-app.use(indexRoute);
+app.use(Login);
+app.use(Votantes);
 
 app.use(errorController.get404);
 //middlewares
@@ -64,9 +65,8 @@ app.use(errorController.get404);
 
 
 //sync
-sequelize.sync(/*{force: true}*/).then((result) => {
+sequelize.sync( /*{force: true}*/ ).then((result) => {
     app.listen(1996);
 }).catch((err) => {
     console.log(err);
 });
-

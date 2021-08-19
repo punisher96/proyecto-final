@@ -3,15 +3,17 @@ const ciudadanoModel = require("../models/ciudadanosModel");
 const partidoModel = require("../models/partidosModel");
 const candidatoModel = require("../models/candidatosModel");
 
-exports.getHome = function (req, res, next) {
+exports.getHome = function(req, res, next) {
     res.render("administrador/indexAdministrador", { pageTitle: "Administrador" });
 };
 
 
 //PUESTOS ELECTIVOS
-exports.getPuestosElectivos = function (req, res, next) {
-  
-    puestoElectivoModel.findAll({order: [['nombre', 'ASC']]}).then((result) => {
+exports.getPuestosElectivos = function(req, res, next) {
+
+    puestoElectivoModel.findAll({ order: [
+            ['nombre', 'ASC']
+        ] }).then((result) => {
 
         const puestosElectivos = result.map((result) => result.dataValues);
 
@@ -21,19 +23,19 @@ exports.getPuestosElectivos = function (req, res, next) {
             puestosElectivos: puestosElectivos
         });
 
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.log(err);
     });
 };
 
-exports.getAgregarPuestoElectivo = function (req, res, next) {
+exports.getAgregarPuestoElectivo = function(req, res, next) {
     res.render("administrador/lista-de-puestos-agregar", {
         pageTitle: "Agregar Puesto electivo",
         editMode: false
     });
 };
 
-exports.postAgregarPuestoElectivo = function (req, res, next) {
+exports.postAgregarPuestoElectivo = function(req, res, next) {
     const nombre = req.body.nombre;
     const descripcion = req.body.descripcion;
 
@@ -48,12 +50,12 @@ exports.postAgregarPuestoElectivo = function (req, res, next) {
 };
 
 exports.getEditarPuesto = (req, res, next) => {
-    const edit = req.query.edit
+    const edit = req.query.edit;
     const puestoId = req.params.puestoId;
 
     if (!edit) {
         return res.redirect("/puestos-electivos");
-    };
+    }
 
     puestoElectivoModel.findOne({ where: { id: puestoId } }).then((result) => {
         const puesto = result.dataValues;
@@ -76,24 +78,22 @@ exports.postEditarPuesto = (req, res, next) => {
     const descripcion = req.body.descripcion;
     const estado = req.body.estado;
     const puestoId = req.body.puestoId;
-    
-    puestoElectivoModel.update(
-        {
+
+    puestoElectivoModel.update({
             nombre: nombre,
             descripcion: descripcion,
             estado: estado
-        },
-        {
+        }, {
             where: { id: puestoId }
         }
-    
+
     ).then((result) => {
         return res.redirect("/puestos-electivos");
     }).catch((err) => {
         console.log(err);
     });
 
-    
+
 };
 
 exports.postDeletePuesto = (req, res, next) => {
@@ -104,7 +104,7 @@ exports.postDeletePuesto = (req, res, next) => {
         console.log(err);
     });
 
-    
+
 };
 
 //PUESTOS ELECTIVOS
@@ -112,9 +112,11 @@ exports.postDeletePuesto = (req, res, next) => {
 //CIUDADANOS
 
 
-exports.getCiudadanos = function (req, res, next) {
-  
-    ciudadanoModel.findAll({order: [['nombre', 'ASC']]}).then((result) => {
+exports.getCiudadanos = function(req, res, next) {
+
+    ciudadanoModel.findAll({ order: [
+            ['nombre', 'ASC']
+        ] }).then((result) => {
 
         const ciudadanos = result.map((result) => result.dataValues);
 
@@ -124,19 +126,19 @@ exports.getCiudadanos = function (req, res, next) {
             ciudadanos: ciudadanos
         });
 
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.log(err);
     });
 };
 
-exports.getAgregarCiudadano = function (req, res, next) {
+exports.getAgregarCiudadano = function(req, res, next) {
     res.render("administrador/ciudadanos-agregar", {
         pageTitle: "Agregar Ciudadano",
         editMode: false
     });
 };
 
-exports.postAgregarCiudadano = function (req, res, next) {
+exports.postAgregarCiudadano = function(req, res, next) {
     const documento = req.body.documento;
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
@@ -155,12 +157,12 @@ exports.postAgregarCiudadano = function (req, res, next) {
 };
 
 exports.getEditarCiudadano = (req, res, next) => {
-    const edit = req.query.edit
+    const edit = req.query.edit;
     const ciudadanoId = req.params.ciudadanoId;
 
     if (!edit) {
         return res.redirect("/ciudadanos");
-    };
+    }
 
     ciudadanoModel.findOne({ where: { id: ciudadanoId } }).then((result) => {
         const ciudadano = result.dataValues;
@@ -185,26 +187,24 @@ exports.postEditarCiudadano = (req, res, next) => {
     const email = req.body.email;
     const estado = req.body.estado;
     const ciudadanoId = req.body.ciudadanoId;
-    
-    ciudadanoModel.update(
-        {
+
+    ciudadanoModel.update({
             documento_de_identidad: documento,
             nombre: nombre,
             apellido: apellido,
             email: email,
             estado: estado
-        },
-        {
+        }, {
             where: { id: ciudadanoId }
         }
-    
+
     ).then((result) => {
         return res.redirect("/ciudadanos");
     }).catch((err) => {
         console.log(err);
     });
 
-    
+
 };
 
 exports.postDeleteCiudadano = (req, res, next) => {
@@ -215,16 +215,18 @@ exports.postDeleteCiudadano = (req, res, next) => {
         console.log(err);
     });
 
-    
+
 };
 
 //CIUDADANOS
 
 //PARTIDOS
 
-exports.getPartidos = function (req, res, next) {
-  
-    partidoModel.findAll({order: [['nombre', 'ASC']]}).then((result) => {
+exports.getPartidos = function(req, res, next) {
+
+    partidoModel.findAll({ order: [
+            ['nombre', 'ASC']
+        ] }).then((result) => {
 
         const partidos = result.map((result) => result.dataValues);
 
@@ -234,19 +236,19 @@ exports.getPartidos = function (req, res, next) {
             partidos: partidos
         });
 
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.log(err);
     });
 };
 
-exports.getAgregarPartido = function (req, res, next) {
+exports.getAgregarPartido = function(req, res, next) {
     res.render("administrador/partidos-agregar", {
         pageTitle: "Agregar Partido",
         editMode: false
     });
 };
 
-exports.postAgregarPartido = function (req, res, next) {
+exports.postAgregarPartido = function(req, res, next) {
     const nombre = req.body.nombre;
     const logo = req.file;
     const descripcion = req.body.descripcion;
@@ -263,12 +265,12 @@ exports.postAgregarPartido = function (req, res, next) {
 };
 
 exports.getEditarPartido = (req, res, next) => {
-    const edit = req.query.edit
+    const edit = req.query.edit;
     const partidoId = req.params.partidoId;
 
     if (!edit) {
         return res.redirect("/partidos");
-    };
+    }
 
     partidoModel.findOne({ where: { id: partidoId } }).then((result) => {
         const partido = result.dataValues;
@@ -303,29 +305,27 @@ exports.postEditarPartido = (req, res, next) => {
 
         const imagePath = logo ? "/" + logo.path : partido.logo;
 
-        partidoModel.update(
-        {
-            nombre: nombre,
-            descripcion: descripcion,
-            estado: estado,
-            logo: imagePath
-        },
-        {
-            where: { id: partidoId }
-        }
-    
-    ).then((result) => {
-        return res.redirect("/partidos");
-    }).catch((err) => {
-        console.log(err);
-    });
-    }).catch((err) => {
-        console.log(err);
-    });
-    
-    
+        partidoModel.update({
+                nombre: nombre,
+                descripcion: descripcion,
+                estado: estado,
+                logo: imagePath
+            }, {
+                where: { id: partidoId }
+            }
 
-    
+        ).then((result) => {
+            return res.redirect("/partidos");
+        }).catch((err) => {
+            console.log(err);
+        });
+    }).catch((err) => {
+        console.log(err);
+    });
+
+
+
+
 };
 
 exports.postDeletePartido = (req, res, next) => {
@@ -336,15 +336,17 @@ exports.postDeletePartido = (req, res, next) => {
         console.log(err);
     });
 
-    
+
 };
 //PARTIDOS
 
 //CANDIDATOS
 
-exports.getCandidatos = function (req, res, next) {
-  
-    candidatoModel.findAll({order: [['nombre', 'ASC']]}).then((result) => {
+exports.getCandidatos = function(req, res, next) {
+
+    candidatoModel.findAll({ order: [
+            ['nombre', 'ASC']
+        ] }).then((result) => {
 
         const candidatos = result.map((result) => result.dataValues);
 
@@ -354,19 +356,19 @@ exports.getCandidatos = function (req, res, next) {
             candidatos: candidatos
         });
 
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.log(err);
     });
 };
 
-exports.getAgregarCandidato = function (req, res, next) {
+exports.getAgregarCandidato = function(req, res, next) {
     res.render("administrador/candidatos-agregar", {
         pageTitle: "Agregar Candidato",
         editMode: false
     });
 };
 
-exports.postAgregarCandidato = function (req, res, next) {
+exports.postAgregarCandidato = function(req, res, next) {
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
     const partido_al_que_pertenece = req.body.partido_al_que_pertenece;
@@ -387,12 +389,12 @@ exports.postAgregarCandidato = function (req, res, next) {
 };
 
 exports.getEditarCandidato = (req, res, next) => {
-    const edit = req.query.edit
+    const edit = req.query.edit;
     const candidatoId = req.params.candidatoId;
 
     if (!edit) {
         return res.redirect("/candidatos");
-    };
+    }
 
     candidatoModel.findOne({ where: { id: candidatoId } }).then((result) => {
         const candidato = result.dataValues;
@@ -429,28 +431,26 @@ exports.postEditarCandidato = (req, res, next) => {
 
         const imagePath = foto ? "/" + foto.path : candidato.foto;
 
-        candidatoModel.update(
-        {
-            nombre: nombre,
-            apellido: apellido,
-            partido_al_que_pertenece: partido_al_que_pertenece,
-            puesto_al_que_aspira: puesto_al_que_aspira,
-            estado: estado,
-            foto: imagePath
-        },
-        {
-            where: { id: candidatoId }
-        }
-    
-    ).then((result) => {
-        return res.redirect("/candidatos");
+        candidatoModel.update({
+                nombre: nombre,
+                apellido: apellido,
+                partido_al_que_pertenece: partido_al_que_pertenece,
+                puesto_al_que_aspira: puesto_al_que_aspira,
+                estado: estado,
+                foto: imagePath
+            }, {
+                where: { id: candidatoId }
+            }
+
+        ).then((result) => {
+            return res.redirect("/candidatos");
+        }).catch((err) => {
+            console.log(err);
+        });
     }).catch((err) => {
         console.log(err);
     });
-    }).catch((err) => {
-        console.log(err);
-    });
-    
+
 };
 
 exports.postDeleteCandidato = (req, res, next) => {
@@ -461,6 +461,6 @@ exports.postDeleteCandidato = (req, res, next) => {
         console.log(err);
     });
 
-    
+
 };
 //CANDIDATOS
