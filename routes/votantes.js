@@ -3,8 +3,8 @@ const router = express.Router();
 const votantesController = require("../controllers/votantesController");
 
 router.get("/", votantesController.Votar);
-router.post("/RegistrarVotante", votantesController.IniciarVoto);
+// router.post("/Votante-Confirm", ConfirmarVotante.ConfirmarVotante);
 
-router.get("/CandidatosActivos", votantesController.ElegirCandidato);
+// router.get("/CandidatosActivos", votantesController.ElegirCandidato);
 
 module.exports = router;

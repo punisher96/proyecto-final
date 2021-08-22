@@ -1,0 +1,28 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div>
+                    <h1 class="pt-3 page">Sistema de votaciones</h1>
+                    <img src="../../assets/img/votantes/indexVotar.jpg" alt="" srcset="" class="img-fluid imagen1">
+                </div>
+                <div class="mt-3 input-group">
+                    <form action="" method="post" class="form">
+                        <div class="mb-3 input-group align-content-lg-center">
+                            <span class="input-group-text" id="basic-addon2">Cedula de identidad</span>
+                            <input type="number" class="form-control" placeholder="Documento de identidad">
+                            <button type="submit" class="btn bg-success bg-gradient text-light">Votar</button>
+                        </div> 
+                    </form>
+                </div>
+                        {{#if Mensaje}}
+                        <div class="alert alert-danger" role="alert">
+                           {{Mensaje}}
+                        </div>
+                        {{/if}}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section> 

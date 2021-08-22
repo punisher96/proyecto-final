@@ -1,45 +1,49 @@
-const Ciudadano = require("../models/ciudadanosModel");
+const ciudadano = require("../models/ciudadanosModel");
 
 
 exports.Votar = function(req, res, next) {
 
-    res.render("votantes/index", {
-        pageTitle: "Inicio del Sistema",
-        isAdded: true,
-    });
+
+    ciudadano.findOne({ where: { documento_de_identidad: 1 } })
+        .then((result) => {
+            const cedula = req.body.documento_de_identidad;
+
+
+            res.render("votantes/index", {
+                pageTitle: "Inicio del Sistema",
+                isAdded: true,
+                homeActive: true,
+                Mensaje: "Prueba de mensaje",
+
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+
 };
 
-exports.IniciarVoto = function(req, res, next) {
-    // const Votante = req.params.IdAutor;
-    // Ciudadano.findOne({ where: { documento_de_identidad: Votante } })
-    //     .then((result) => {
-    //         const autor = result.dataValues;
+exports.ConfirmarVotante = function(req, res, next) {
+    const Cedula = req.body.documento_de_identidad;
+    Votante.findOne({ where: { documento_de_identidad: Cedula } })
+        .then((result) => {
+            const votante = result.dataValues;
+            Console.log(votante);
+            // if (!votante) {
 
-    //         if (!autor) {
-    //             return res.redirect("/");
-    //         }
-    //         console.log(autor);
+            //     return res.redirect("/");
+            // }
+            // console.log(votante);
 
-    //         res.render("autor/AgregarAutor", {
-    //             pageTitle: "Editando autor",
-    //             AutorActive: true,
-    //             editMode: edit,
-    //             autor: autor,
-    //         });
+            // res.render("votantes/MostrarCandidatos", {
+            //     pageTitle: "Editando votante",
+            //     votanteActive: true,
+            //     votante: votante,
+            // });
 
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
+        }).catch((err) => {
+            console.log(err);
+        });
 
-
-    // if(){
-    res.render("votantes/MostrarCandidatos", {
-        pageTitle: "Candidatos Activos"
-    });
-    // }else{
-
-    // }
 };
 
 
