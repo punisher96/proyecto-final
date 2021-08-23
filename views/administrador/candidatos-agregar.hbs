@@ -1,14 +1,9 @@
- <div class="row">
-    <div class="col-md-3">
-    </div>
+  <div class="row mt-4">
+    <div class="col-md-3"></div>
     <div class="col-md-6">
         <div class="card">
             <div class="text-white card-header bg-dark">
-                {{#if editMode}}
-                Editar Candidato
-                {{else}}
-                Agregar Candidato
-                {{/if}}
+                {{#if editMode}}Editar Candidato{{else}}Agregar Candidato{{/if}}
             </div>
             <div class="card-body">
                 <form enctype="multipart/form-data" method="POST" action="{{#if editMode}}/editar-candidato{{else}}/agregar-candidato{{/if}}">
@@ -43,7 +38,7 @@
  
                     {{#if editMode}}
                     <div class="mb-3">
-                        <input type="hidden" name="candidatoId" value="<%= candidato.id %> ">
+                        <input type="hidden" name="candidatoId" value="{{#if editMode}}{{candidato.id}}{{/if}}">
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-control" id="estado" name="estado">
                             <option value=1>Activo</option>
@@ -51,6 +46,7 @@
                         </select>
                     </div>
                     {{/if}} 
+                    
                     <button type="submit" class="btn btn-primary">
                        {{#if editMode}}
                         Editar
@@ -65,7 +61,3 @@
     </div>
     <div class="col-md-3"></div>
 </div>
-
-
-
- 

@@ -1,5 +1,5 @@
  
-<div class="row">
+<div class="row mt-4">
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
@@ -18,12 +18,12 @@
                         <input type="text" class="form-control" id="documento" name="documento"
                             value="{{#if editMode}}{{ciudadano.documento_de_identidad}}{{/if}}">
                     </div>
-
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre"
                             value="{{#if editMode}}{{ciudadano.nombre}}{{/if}}">
                     </div>
+ 
 
                     <div class="mb-3">
                         <label for="apellido" class="form-label">Apellido</label>
@@ -48,15 +48,15 @@
                     </div>
                     {{/if}}
 
-
                     <button type="submit" class="btn btn-primary">
                         {{#if editMode}}
                         Editar
-                        {{#if editMode}}
+                        {{else}}
                         Agregar
                         {{/if}}
                     </button>
-                    <a href="/ciudadanos" type="button" class="btn btn-warning">Regresar</a>
+                    
+                    <a href="/ciudadanos" type="button" class="btn btn-warning">Regresar</a> 
                 </form>
             </div>
         </div>
