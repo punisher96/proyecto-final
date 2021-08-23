@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const votantesController = require("../controllers/votantesController");
 
-router.get("/login", votantesController.getLogin);
-router.get("/registro", votantesController.getRegistro);
+router.get("/", votantesController.Votar);
+// router.post("/Votante-Confirm", ConfirmarVotante.ConfirmarVotante);
+
+// router.get("/CandidatosActivos", votantesController.ElegirCandidato);
 
 module.exports = router;
 
