@@ -40,7 +40,7 @@ router.post("/delete-candidato", administradorController.postDeleteCandidato);
 //CANDIDATOS
 
 //ELECCIONES
-router.get("/elecciones", administradorController.getElecciones);
+// router.get("/elecciones", administradorController.getElecciones);
 // router.get("/agregarElecciones", administradorController.);
 
 // router.post("/agregar-elecciones", administradorController.);
