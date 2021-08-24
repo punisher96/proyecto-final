@@ -6,17 +6,24 @@ exports.GetRegistro = function(req, res, next) {
     res.render("auth/registro", { pageTitle: "Inicio" });
 };
 
+
 exports.PostRegistro = function(req, res, next){
     const { nombre, apellido, email, usuario, contrasena, c_contrasena} = req.body
-    const error = [];
+    const errors = [];
+    console.log(req.body)
+
+    if(nombre.length <= 0 ){
+        errors.push({text: "Por favor ingresa tu nombre"})
+    }
     if(contrasena != c_contrasena){
-        error.push({text: "Las contraseñas no coinciden"})
+        errors.push({text: "Las contraseñas no coinciden"})
     }
     if(contrasena.length > 4){
-        error.push({text: "La contraseña debe tener más de 4 dígitos"})
+        errors.push({text: "La contraseña debe tener más de 4 dígitos"})
     }
-    if(error.length > 0){
-        res.render('registro', {error, nombre, apellido, email, usuario, contrasena, c_contrasena});
+
+    if(errors.length > 0){
+        res.render('auth/registro', {errors, nombre, apellido, email, usuario, contrasena, c_contrasena});
     } else{
         res.send("Nice")
     }
