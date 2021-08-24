@@ -18,7 +18,7 @@ exports.PostRegistro = function(req, res, next){
     if(contrasena != c_contrasena){
         errors.push({text: "Las contraseñas no coinciden"})
     }
-    if(contrasena.length > 4){
+    if(contrasena.length < 5){
         errors.push({text: "La contraseña debe tener más de 4 dígitos"})
     }
 
