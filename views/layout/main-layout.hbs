@@ -24,11 +24,20 @@
 
             <ul class="mb-2 nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
                 <li><a href="/" class="px-2 nav-link text-secondary {{#if homeActive}}text-light{{/if}}">Home</a></li>
+                <li><a href="/home" class="px-2 nav-link text-secondary {{#if inicioActive}}text-light{{/if}}">Inicio</a></li>
+                <li><a href="/candidatos" class="px-2 nav-link text-secondary {{#if candidatosActive}}text-light{{/if}}">Candidatos</a></li>
+                <li><a href="/partidos" class="px-2 nav-link text-secondary {{#if partidosActive}}text-light{{/if}}">Partidos</a></li>
+                <li><a href="/puestos-electivos" class="px-2 nav-link text-secondary {{#if puestoActive}}text-light{{/if}}">Puestos electivos</a></li>
+                <li><a href="/ciudadanos" class="px-2 nav-link text-secondary {{#if ciudadanoActive}}text-light{{/if}}">Ciudadanos</a></li>
+                <li><a href="#" class="px-2 nav-link text-secondary {{#if eleccionesActive}}text-light{{/if}}">Elecciones</a></li>
             </ul>
 
             <div class="text-end">
                 <a href="/login" class="btn btn-outline-light me-2">Inicio de sesion</a>
                 <a href="/registro" class="btn btn-warning">Registro</a>
+          {{!-- <div class="text-end">
+                    <button class="btn btn-outline-light me-2">Cerrar sesion</button>
+              </div> --}}
             </div>
         </div>
     </div>

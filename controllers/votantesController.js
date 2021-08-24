@@ -1,8 +1,6 @@
 const ciudadano = require("../models/ciudadanosModel");
 
-
 exports.Votar = function(req, res, next) {
-
 
     ciudadano.findOne({ where: { documento_de_identidad: 1 } })
         .then((result) => {
