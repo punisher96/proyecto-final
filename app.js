@@ -5,11 +5,12 @@ const app = express();
 const expressHbs = require("express-handlebars"); //Handlebars 
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const passport = require('passport');
 
 
 //conecction
 const sequelize = require("./util/database");
-
+require('./util/passport')
 
 //models
 const candidatosModel = require("./models/candidatosModel");
@@ -64,6 +65,8 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(administradorRoute);
 app.use(Auth);
 app.use(Votantes);
+app.use(passport.initialize());
+app.use(passport.session);
 
 app.use(errorController.get404);
 
