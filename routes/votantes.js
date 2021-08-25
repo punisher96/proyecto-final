@@ -7,6 +7,7 @@ router.get("/", votantesController.Votar);
 
 // router.get("/CandidatosActivos", votantesController.ElegirCandidato);
 
+router.get("/votacion", votantesController.ElegirCandidato);
 module.exports = router;
 
 //Probando merge

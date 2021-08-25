@@ -1,4 +1,5 @@
 const ciudadano = require("../models/ciudadanosModel");
+const candidato = require("../models/candidatosModel");
 
 exports.Votar = function(req, res, next) {
 
@@ -45,8 +46,25 @@ exports.ConfirmarVotante = function(req, res, next) {
 };
 
 
-exports.ElegirCandidato = function(req, res, next) {
-    res.render("votantes/mostrarCandidatos", {
-        pageTitle: "Candidatos Activos"
+exports.ElegirCandidato = function (req, res, next) {
+    
+    candidato.findAll({
+        order: [
+            ['nombre', 'ASC']
+        ]
+    }).then((result) => {
+
+        const candidatos = result.map((result) => result.dataValues);
+
+        console.log(candidatos);
+        res.render("votantes/mostrarCandidatos", {
+        pageTitle: "Candidatos Activos",
+        candidatos: candidatos
     });
+
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    
 };

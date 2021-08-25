@@ -1,9 +1,42 @@
-<%- include("../layout/open") %>
-    <%- include("../layout/header-home") %>
+<div class="row mt-4">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="text-white card-header bg-dark">
+                Seleccione El candidato por el cual desea votar
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Candidato</th>
+                                <th scope="col">Puesto</th>
+                                <th scope="col">Partido</th>
+                                <th scope="col">Votar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each candidatos as |candidato|}}
+                            <tr>
+                                <th scope="row"><h6 class="card-text">{{candidato.nombre}} {{candidato.apellido}}</h6>
+                                <img class="" alt="{{candidato.nombre}} {{candidato.apellido}}" src="{{candidato.foto}}" width="100" height="100"></th>
+                                <td>Aqui va el puesto</td>
+                                <td>Aqui va el partido</td>
+                                <td><button type="submit" class="btn btn-primary">
+                                    Votar
+                                </button></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    
+                    
 
-        <section>
-            <h1>Aqui se mostraran los candidatos Activos (No es parte del adminitrador)</h1>
-        </section>
-
-        <%- include("../layout/footer") %>
-            <%- include("../layout/close") %>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
