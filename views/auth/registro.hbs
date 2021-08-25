@@ -13,7 +13,7 @@
             <div class="row g-3">
                 <div class="col-sm-6">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" value="" required="">
+                    <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" value="{{nombre}}" required="">
                     <div class="invalid-feedback">
                         Por favor coloque su nombre.
                     </div>
@@ -21,7 +21,7 @@
 
                 <div class="col-sm-6">
                     <label for="apellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" value="" required="">
+                    <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" value="{{apellido}}" required="">
                     <div class="invalid-feedback">
                         Por favor coloque su apellido.
                     </div>
@@ -29,7 +29,7 @@
 
                 <div class="col-12">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email" value="{{email}}">
                     <div class="invalid-feedback">
                         Por favor introduzca un email valido.
                     </div>
@@ -39,8 +39,8 @@
                     <label for="usuario" class="form-label">Usuario</label>
                     <div class="input-group has-validation">
                         <span class="input-group-text">@</span>
-                        <input type="text" class="form-control" id="usuario" placeholder="Nombre de usuario"
-                            required="" name="usuario">
+                        <input type="text" class="form-control" id="nombre_de_usuario" placeholder="Nombre de usuario"
+                            required="" name="nombre_de_usuario" value="{{nombre_de_usuario}}">
                         <div class="invalid-feedback">
                             Por favor introduzca su nombre de usuario.
                         </div>
@@ -50,7 +50,7 @@
 
                 <div class="col-12">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" required="" name="contrasena">
+                    <input type="password" class="form-control" id="password" required="" name="password" value="{{password}}">
                     <div class="invalid-feedback">
                         Introduzca su contraseña.
                     </div>
@@ -58,7 +58,7 @@
 
                 <div class="col-12">
                     <label for="passwordConfirm" class="form-label">Confirme su Contraseña</label>
-                    <input type="password" class="form-control" id="passwordConfirm" required="" name="c_contrasena">
+                    <input type="password" class="form-control" id="passwordConfirm" required="" name="c_contrasena" value="{{c_contrasena}}">
                     <div class="invalid-feedback">
                         Introduzca su contraseña de nuevo.
                     </div>
