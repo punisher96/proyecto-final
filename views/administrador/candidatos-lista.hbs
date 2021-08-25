@@ -16,12 +16,12 @@
 
         <div class="row">
             {{#each candidatos as |candidato|}} 
-            <div class="card col-md-3">
+            <div class="m-3 card col-md-5">
                 <img src="{{candidato.foto}}" class="card-img-top img-responsive img-size" alt="{{candidato.nombre}}">
                 <div class="card-body">
-                    <h5 class="card-title">{{candidato.nombre}} {{candidato.apellido}}</h5>
-                    <h6 class="card-text">Partido</h6>
-                    <h6 class="card-text">Puesto</h6>
+                    <h5 class="card-title">Nombre: <b>{{candidato.nombre}} {{candidato.apellido}}</b></h5>
+                    <h6 class="card-text text-muted">Partido: {{candidato.partido.dataValues.nombre}}</h6>
+                    <h6 class="card-text text-muted">Puesto: {{candidato.puesto_electivo.dataValues.nombre}}</h6>
                     <a href="/editar-candidato/{{candidato.id}}?edit=true" class="btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-candidato" method="POST">
