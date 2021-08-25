@@ -1,43 +1,51 @@
+<<<<<<< HEAD
 const ciudadano = require("../models/ciudadanosModel");
 const candidato = require("../models/candidatosModel");
+=======
+const Ciudadano = require("../models/ciudadanosModel");
+>>>>>>> f317faf68c336380d1462d9069f520df33f035bd
 
 exports.Votar = function(req, res, next) {
 
-    ciudadano.findOne({ where: { documento_de_identidad: 1 } })
-        .then((result) => {
-            const cedula = req.body.documento_de_identidad;
-
-
-            res.render("votantes/index", {
-                pageTitle: "Inicio del Sistema",
-                isAdded: true,
-                homeActive: true,
-                Mensaje: "Prueba de mensaje",
-
-            });
-        }).catch((err) => {
-            console.log(err);
-        });
-
+    res.render("votantes/index", {
+        pageTitle: "Inicio del Sistema",
+        isAdded: true,
+        homeActive: true,
+        Mensaje: "Prueba de mensaje",
+    });
 };
 
-exports.ConfirmarVotante = function(req, res, next) {
+exports.postVotante = function(req, res, next) {
     const Cedula = req.body.documento_de_identidad;
-    Votante.findOne({ where: { documento_de_identidad: Cedula } })
+    const errors = [];
+
+    Ciudadano.findOne({
+            where: {
+                documento_de_identidad: Cedula,
+            }
+        })
         .then((result) => {
-            const votante = result.dataValues;
-            Console.log(votante);
-            // if (!votante) {
 
-            //     return res.redirect("/");
-            // }
-            // console.log(votante);
-
-            // res.render("votantes/MostrarCandidatos", {
-            //     pageTitle: "Editando votante",
-            //     votanteActive: true,
-            //     votante: votante,
-            // });
+            if (result != null) {
+                const ciudadano = result.dataValues;
+                console.log(result);
+                console.log("--------");
+                if (ciudadano.estado == true) {
+                    errors.push({ text: "ciudadano activo" });
+                    res.render("votantes/index", {
+                        pageTitle: "Editando votante",
+                        votanteActive: true,
+                        errors,
+                    });
+                }
+            } else {
+                errors.push({ text: "No existe este documento de Identidad" });
+                res.render("votantes/index", {
+                    pageTitle: "Editando votante",
+                    votanteActive: true,
+                    errors,
+                });
+            }
 
         }).catch((err) => {
             console.log(err);

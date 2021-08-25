@@ -3,7 +3,7 @@ const router = express.Router();
 const votantesController = require("../controllers/votantesController");
 
 router.get("/", votantesController.Votar);
-// router.post("/Votante-Confirm", ConfirmarVotante.ConfirmarVotante);
+router.post("/Votante-Confirm", votantesController.postVotante);
 
 // router.get("/CandidatosActivos", votantesController.ElegirCandidato);
 
