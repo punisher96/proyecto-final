@@ -1,6 +1,5 @@
 const { UPSERT } = require("sequelize/types/lib/query-types");
 
-
 exports.Login = function(req, res, next) {
     res.render("auth/login", { pageTitle: "Inicio" });
 };
@@ -28,16 +27,17 @@ exports.PostRegistro = async function(req, res, next){
     if(errors.length > 0){
         res.render('auth/registro', {errors, nombre, apellido, email, usuario, password, c_password});
     } else{
-        const emailUser = await User.findOne({email: email})
-        if(emailUser){
-            req.flash('error_msg', 'El correo ya está en uso');
-            res.redirect('auth/registro');
-        }
-        const newUser = new User({nombre, apellido, email, usuario, password});
-        newUser.password = await newUser.encryptPassword(password)
-        await newUser.save();
-        req.flash('success_msg', 'Te has registrado');
-        res.redirect('auth/login');
+        res.send('cool');
+        // const emailUser = await User.findOne({email: email})
+        // if(emailUser){
+        //     req.flash('error_msg', 'El correo ya está en uso');
+        //     res.redirect('auth/registro');
+        // }
+        // const newUser = new User({nombre, apellido, email, usuario, password});
+        // newUser.password = await newUser.encryptPassword(password)
+        // await newUser.save();
+        // req.flash('success_msg', 'Te has registrado');
+        // res.redirect('auth/login');
     }
     
 }
