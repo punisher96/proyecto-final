@@ -142,7 +142,7 @@ exports.getCiudadanos = function(req, res, next) {
 };
 
 exports.getAgregarCiudadano = function(req, res, next) {
-    res.render("administrador/CiudadanoAdd", {
+    res.render("administrador/ciudadanos-agregar", {
         pageTitle: "Agregar Ciudadano",
         editMode: false
     });

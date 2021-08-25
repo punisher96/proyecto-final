@@ -17,16 +17,16 @@
     <div class="container">
 
         <div class="row">
-            {{#each puestosElectivos}} 
+            {{#each puestosElectivos as |puestos|}} 
             <div class="card col-md-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{puestoElectivo.nombre}}</h5>
-                    <h6 class="mb-2 card-subtitle text-muted">{{puestoElectivo.descripcion}}</h6>
-                    <a href="/editar-puesto-electivo/{{puestoElectivo.id}}?edit=true"
+                    <h5 class="card-title">Nombre del puesto: <br> {{puestos.nombre}}</h5>
+                    <h6 class="mb-2 card-subtitle text-muted">Descripcion: {{puestos.descripcion}}</h6>
+                    <a href="/editar-puesto-electivo/{{puestos.id}}?edit=true"
                         class="btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-puesto" method="POST">
-                        <input type="hidden" name="puestoId" value="{{puestoElectivo.id}}">
+                        <input type="hidden" name="puestoId" value="{{puestos.id}}">
                         <button type="submit" id="" class="btn btn-danger">Eliminar</button>
                     </form> 
                 </div>

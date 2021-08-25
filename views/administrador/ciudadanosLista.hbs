@@ -15,16 +15,16 @@
 <div class="py-5 album bg-light">
     <div class="container"> 
         <div class="row">
-            {{#each ciudadanos}}
+            {{#each ciudadanos as |ciudadano|}}
             <div class="card col-md-3">
                 <div class="card-body">
-                    <h5 class="card-title">{{this.nombre}} {{this.apellido}}</h5>
-                    <h6 class="mb-2 card-subtitle text-muted">Documento de identidad: {{this.documento_de_identidad}}</h6>
-                    <h6 class="mb-2 card-subtitle">Email: {{this.email}}</h6>
-                    <a href="/editar-ciudadano/{{this.id}}?edit=true" class="btn btn-warning">Editar</a>
+                    <h5 class="card-title">{{ciudadano.nombre}} {{ciudadano.apellido}}</h5>
+                    <h6 class="mb-2 card-subtitle text-muted">Documento de identidad: {{ciudadano.documento_de_identidad}}</h6>
+                    <h6 class="mb-2 card-subtitle">Email: {{ciudadano.email}}</h6>
+                    <a href="/editar-ciudadano/{{ciudadano.id}}?edit=true" class="btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-ciudadano" method="POST">
-                        <input type="hidden" name="ciudadanoId" value="{{this.id}}">
+                        <input type="hidden" name="ciudadanoId" value="{{ciudadano.id}}">
                         <button type="submit" id="" class="btn btn-danger">Eliminar</button>
                     </form> 
                 </div>
