@@ -5,12 +5,11 @@ const app = express();
 const expressHbs = require("express-handlebars"); //Handlebars 
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-const passport = require('passport');
 
 
 //conecction
 const sequelize = require("./util/database");
-require('./util/passport')
+
 
 //models
 const candidatosModel = require("./models/candidatosModel");
@@ -45,11 +44,16 @@ const fileStorage = multer.diskStorage({
 app.use(multer({ storage: fileStorage }).single("ImagePath"));
 
 
+const compareHelpers = require("./util/helpers/hbs/compare");
+
 // Para usar handlerbars 
 app.engine("hbs", expressHbs({
     layoutsDir: 'views/layout/',
     defaultLayout: 'main-layout',
     extname: 'hbs',
+    helpers: {
+        equalValue: compareHelpers.EqualValue,
+    },
 }));
 app.set("view engine", "hbs");
 app.set("views", "views");
@@ -65,16 +69,18 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(administradorRoute);
 app.use(Auth);
 app.use(Votantes);
-app.use(passport.initialize());
-app.use(passport.session);
 
 app.use(errorController.get404);
 
 //relaciones
+candidatosModel.belongsTo(partidosModel, { constraint: true, onDelete: "CASCADE" });
+partidosModel.hasMany(candidatosModel);
 
+candidatosModel.belongsTo(puestoElectivoModel, { constraint: true, onDelete: "CASCADE" });
+puestoElectivoModel.hasMany(candidatosModel);
 
 //sync
-sequelize.sync( /*{force: true}*/ ).then((result) => {
+sequelize.sync( /*{ force: true }*/ ).then((result) => {
     app.listen(1996);
 }).catch((err) => {
     console.log(err);

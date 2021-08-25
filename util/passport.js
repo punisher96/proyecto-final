@@ -11,7 +11,3 @@ passport.use('local.registro', new LocalStrategy({
     console.log(req.body);
 
 }));
-
-// passport.serializeUser((usr, done) =>{
-
-// })
