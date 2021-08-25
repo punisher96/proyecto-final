@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+         {{pageTitle}}
+    </title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+
+<body class="text-center" data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="">
+    <header class="p-3 text-white bg-dark">
+    <div class="container">
+        <div class="flex-wrap d-flex align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="mb-2 text-white d-flex align-items-center mb-lg-0 text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+
+            <ul class="mb-2 nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
+                <li><a href="/" class="px-2 nav-link text-secondary {{#if homeActive}}text-light{{/if}}">Home</a></li>
+                <li><a href="/home" class="px-2 nav-link text-secondary {{#if inicioActive}}text-light{{/if}}">Inicio</a></li>
+                <li><a href="/candidatos" class="px-2 nav-link text-secondary {{#if candidatosActive}}text-light{{/if}}">Candidatos</a></li>
+                <li><a href="/partidos" class="px-2 nav-link text-secondary {{#if partidosActive}}text-light{{/if}}">Partidos</a></li>
+                <li><a href="/puestos-electivos" class="px-2 nav-link text-secondary {{#if puestoActive}}text-light{{/if}}">Puestos electivos</a></li>
+                <li><a href="/ciudadanos" class="px-2 nav-link text-secondary {{#if ciudadanoActive}}text-light{{/if}}">Ciudadanos</a></li>
+                <li><a href="#" class="px-2 nav-link text-secondary {{#if eleccionesActive}}text-light{{/if}}">Elecciones</a></li>
+            </ul>
+
+            <div class="text-end">
+                <a href="/login" class="btn btn-outline-light me-2">Inicio de sesion</a>
+                <a href="/registro" class="btn btn-warning">Registro</a>
+          {{!-- <div class="text-end">
+                    <button class="btn btn-outline-light me-2">Cerrar sesion</button>
+              </div> --}}
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+
+    {{{body}}}
+
+    <br>
+
+<footer class="py-3 mt-auto footer bg-light">
+    <div class="container">
+        <span class="text-muted">Colocar pie de pagina</span>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/assets/js/index.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+ 
+<section class="container py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="mx-auto col-lg-6 col-md-8">
+            <h1 class="fw-light">Ciudadanos</h1>
+            <p class="lead text-muted">Aqui se muestra el listado de los ciudadanos y las opciones
+                que se pueden implementar con los mismos</p>
+            <p>
+                <a href="/agregar-ciudadano" class="my-2 btn btn-primary">Agregar nuevo ciudadano</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="py-5 album bg-light">
+    <div class="container"> 
+        <div class="row">
+            {{#each ciudadanos}}
+            <div class="card col-md-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.nombre}} {{this.apellido}}</h5>
+                    <h6 class="mb-2 card-subtitle text-muted">Documento de identidad: {{this.documento_de_identidad}}</h6>
+                    <h6 class="mb-2 card-subtitle">Email: {{this.email}}</h6>
+                    <a href="/editar-ciudadano/{{this.id}}?edit=true" class="btn btn-warning">Editar</a>
+
+                    <form class="form-inline" id="form-delete" action="/delete-ciudadano" method="POST">
+                        <input type="hidden" name="ciudadanoId" value="{{this.id}}">
+                        <button type="submit" id="" class="btn btn-danger">Eliminar</button>
+                    </form> 
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+
+ 

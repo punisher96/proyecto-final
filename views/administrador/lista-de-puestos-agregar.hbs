@@ -1,0 +1,52 @@
+ 
+<div class="mt-4 row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="text-white card-header bg-dark">
+                {{#if editMode}}
+                Editar Puesto Electivo
+                {{else}}
+                Agregar Puesto Electivo
+                {{/if}}
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{#if editMode}}/editar-puesto-electivo"{{else}}"/agregar-puesto"{{/if}}>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del puesto electivo</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            value="{{#if editMode}}{{puesto.nombre}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion"
+                            value="{{#if editMode}}{{puesto.descripcion}}{{/if}}">
+                    </div>
+
+                    {{#if editMode}}
+                    <input type="hidden" name="puestoId" value="{{#if editMode}}{{puesto.id}}{{/if}}">
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-control" id="estado" name="estado">
+                            <option value=1>Activo</option>
+                            <option value=0>Inactivo</option>
+                        </select>
+                    </div>
+                    {{/if}}
+
+                    <button type="submit" class="btn btn-primary">
+                        {{#if editMode}}
+                        Editar
+                        {{else}} 
+                        Agregar
+                        {{/if}}
+                    </button>
+                    <a href="/puestos-electivos" type="button" class="btn btn-warning">Regresar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

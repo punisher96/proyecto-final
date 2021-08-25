@@ -1,0 +1,63 @@
+  <div class="row mt-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="text-white card-header bg-dark">
+                {{#if editMode}}Editar Candidato{{else}}Agregar Candidato{{/if}}
+            </div>
+            <div class="card-body">
+                <form enctype="multipart/form-data" method="POST" action="{{#if editMode}}/editar-candidato{{else}}/agregar-candidato{{/if}}">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del candidato</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            value="{{#if editMode}}{{candidato.nombre}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido del candidato</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido"
+                            value="{{#if editMode}}{{candidato.apellido}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="partido" class="form-label">Partido al que pertenece</label>
+                        <input type="number" class="form-control" id="partido" name="partido_al_que_pertenece"
+                            value="{{#if editMode}}{{candidato.partido}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="puesto" class="form-label">Puesto al que aspira</label>
+                        <input type="number" class="form-control" id="puesto" name="puesto_al_que_aspira"
+                            value="{{#if editMode}}{{candidato.puesto}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Foto del candidato</label>
+                        <input class="form-control" name="ImagePath" type="file" id="formFile">
+                    </div>
+ 
+                    {{#if editMode}}
+                    <div class="mb-3">
+                        <input type="hidden" name="candidatoId" value="{{#if editMode}}{{candidato.id}}{{/if}}">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-control" id="estado" name="estado">
+                            <option value=1>Activo</option>
+                            <option value=0>Inactivo</option>
+                        </select>
+                    </div>
+                    {{/if}} 
+                    
+                    <button type="submit" class="btn btn-primary">
+                       {{#if editMode}}
+                        Editar
+                         {{else}}
+                        Agregar
+                       {{/if}} 
+                    </button>
+                    <a href="/candidatos" type="button" class="btn btn-warning">Regresar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

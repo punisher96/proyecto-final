@@ -1,0 +1,38 @@
+ 
+<section class="container py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="mx-auto col-lg-6 col-md-8">
+            <h1 class="fw-light">Puestos Electivos</h1>
+            <p class="lead text-muted">Aqui se muestra el listado de los puestos electivos disponibles y las opciones
+                que
+                se pueden implementar con los mismos</p>
+            <p>
+                <a href="/agregar-puesto" class="my-2 btn btn-primary">Agregar nuevo puesto electivo</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="py-5 album bg-light">
+    <div class="container">
+
+        <div class="row">
+            {{#each puestosElectivos}} 
+            <div class="card col-md-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{puestoElectivo.nombre}}</h5>
+                    <h6 class="mb-2 card-subtitle text-muted">{{puestoElectivo.descripcion}}</h6>
+                    <a href="/editar-puesto-electivo/{{puestoElectivo.id}}?edit=true"
+                        class="btn btn-warning">Editar</a>
+
+                    <form class="form-inline" id="form-delete" action="/delete-puesto" method="POST">
+                        <input type="hidden" name="puestoId" value="{{puestoElectivo.id}}">
+                        <button type="submit" id="" class="btn btn-danger">Eliminar</button>
+                    </form> 
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div> 
+ 

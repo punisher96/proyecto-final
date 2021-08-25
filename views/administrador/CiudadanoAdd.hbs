@@ -1,0 +1,68 @@
+ 
+<div class="row mt-4">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="text-white card-header bg-dark">
+                {{#if editMode}}
+                Editar Ciudadano
+                {{else}} 
+                Agregar Ciudadano
+                {{/if}}
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{#if editMode}}/editar-ciudadano{{else}}/agregar-ciudadano{{/if}}">
+                    <div class="mb-3">
+                        <label for="documento" class="form-label">Documento de identidad</label>
+                        <input type="text" class="form-control" id="documento" name="documento"
+                            value="{{#if editMode}}{{ciudadano.documento_de_identidad}}{{/if}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            value="{{#if editMode}}{{ciudadano.nombre}}{{/if}}">
+                    </div>
+ 
+
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido"
+                            value="{{#if editMode}}{{ciudadano.apellido}}{{/if}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                            value="{{#if editMode}}{{ciudadano.email}}{{/if}}">
+                    </div>
+
+                    {{#if editMode}}
+                    <div class="mb-3">
+                        <input type="hidden" name="ciudadanoId" value="{{#if editMode}}{{ciudadano.id}}{{/if}}">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select class="form-control" id="estado" name="estado">
+                            <option value=1>Activo</option>
+                            <option value=0>Inactivo</option>
+                        </select>
+                    </div>
+                    {{/if}}
+
+                    <button type="submit" class="btn btn-primary">
+                        {{#if editMode}}
+                        Editar
+                        {{else}}
+                        Agregar
+                        {{/if}}
+                    </button>
+                    
+                    <a href="/ciudadanos" type="button" class="btn btn-warning">Regresar</a> 
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+
+ 
