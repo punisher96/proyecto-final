@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs')
-
 const Sequelize  = require('sequelize');
 
 const sequelize = require("../util/database");
@@ -37,15 +35,5 @@ const usuarios = sequelize.define("usuarios", {
         defaultValue: true
     }
 });
-
-
-// usuarios.methods.encryptPassword = async (password) => {
-//     const salt = await bcrypt.genSalt(10);
-//     const hash = bcrypt.hash(password, salt);
-//     return hash;
-// };
-// usuarios.methods.matchPassword = async function(password){
-//     return await bcrypt.compare(password, this.password);
-// };
 
 module.exports = usuarios;
