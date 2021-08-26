@@ -21,7 +21,14 @@
                     <h5 class="card-title">{{ciudadano.nombre}} {{ciudadano.apellido}}</h5>
                     <h6 class="mb-2 card-subtitle text-muted">Documento de identidad: {{ciudadano.documento_de_identidad}}</h6>
                     <h6 class="mb-2 card-subtitle">Email: {{ciudadano.email}}</h6>
-                    <a href="/editar-ciudadano/{{ciudadano.id}}?edit=true" class="btn btn-warning">Editar</a>
+
+                    {{#if ciudadano.estado }}
+                        <span class="my-2 badge bg-success float-end">Active</span><br>
+                    {{else}}
+                        <span class="my-2 badge bg-danger float-end">Disabled</span><br> 
+                    {{/if}}
+
+                    <a href="/editar-ciudadano/{{ciudadano.id}}?edit=true" class="my-3 btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-ciudadano" method="POST">
                         <input type="hidden" name="ciudadanoId" value="{{ciudadano.id}}">

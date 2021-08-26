@@ -353,36 +353,72 @@ exports.postDeletePartido = (req, res, next) => {
 
 exports.getCandidatos = function(req, res, next) {
 
-    candidatoModel.findAll({ include: [{ model: partidosModel }, { model: puestoElectivoModel }] })
-        .then((result) => {
+    candidatoModel.findAll()
+        .then((candi) => {
+            partidosModel.findAll({ where: { estado: true } })
+                .then((parti) => {
+                    puestoElectivoModel.findAll({ where: { estado: true } })
+                        .then((pues) => {
+                            const candidatos = candi.map((result) => result.dataValues);
+                            const partidos = parti.map((result) => result.dataValues);
+                            const puestos = pues.map((result) => result.dataValues);
 
-            const candidatos = result.map((result) => result.dataValues);
+                            res.render("administrador/candidatos-lista", {
+                                pageTitle: "Candidatos",
+                                candidatos: candidatos,
+                                candidatosActive: true,
+                                partidosAny: partidos.length > 0,
+                                puestoElectivoAny: puestos.length > 0,
+                            });
+                        });
+                });
 
-            console.log(candidatos);
-            res.render("administrador/candidatos-lista", {
-                pageTitle: "Candidatos",
-                candidatos: candidatos,
-                candidatosActive: true,
-            });
+
         })
         .catch((err) => {
             console.log(err);
         });
+    // Promise.all([candidatoModel.findAll(), partidosModel.findAll(), puestoElectivoModel.findAll()]).then(data => {
+    //     const candidatos = data[0].map((result) => result.dataValues);
+    //     const partidos = data[1].map((result) => result.dataValues);
+    //     const puestos = data[2].map((result) => result.dataValues);
+
+    //     res.render("administrador/candidatos-lista", {
+    //         pageTitle: "Candidatos",
+    //         candidatos: candidatos,
+    //         candidatosActive: true,
+    //         partidosAny: partidos.length > 0,
+    //         puestoElectivoAny: puestos.length > 0,
+    //     });
+    // }).catch(error => {
+    //     console.log(error);
+    // });
 };
 
 exports.getAgregarCandidato = function(req, res, next) {
-    Promise.all([partidosModel.findAll(), puestoElectivoModel.findAll()]).then(data => {
-        const partido = data[0].map((result) => result.dataValues);
-        const puesto = data[1].map((result) => result.dataValues);
-        res.render("administrador/candidatos-agregar", {
-            pageTitle: "Agregar Candidato",
-            editMode: false,
-            partido: partido,
-            puesto: puesto,
+
+    partidosModel.findAll({ where: { estado: true } })
+        .then((parti) => {
+            puestoElectivoModel.findAll({ where: { estado: true } })
+                .then((pues) => {
+                    const partidos = parti.map((result) => result.dataValues);
+                    const puestos = pues.map((result) => result.dataValues);
+
+                    res.render("administrador/candidatos-agregar", {
+                        pageTitle: "Agregar Candidato",
+                        candidatosActive: true,
+                        partido: partidos,
+                        puesto: puestos,
+                        editMode: false,
+                        partidosAny: partidos.length > 0,
+                        puestoElectivoAny: puestos.length > 0,
+                    });
+                }).catch(error => {
+                    console.log(error);
+                });
+        }).catch(error => {
+            console.log(error);
         });
-    }).catch(error => {
-        console.log(error);
-    });
 };
 
 exports.postAgregarCandidato = function(req, res, next) {
@@ -427,7 +463,8 @@ exports.getEditarCandidato = (req, res, next) => {
                 editMode: edit,
                 partido: partido,
                 puesto: puesto,
-                candidato: candidato
+                candidato: candidato,
+                activo: candidato.estado
             });
         }).catch(error => {
             console.log(error);
