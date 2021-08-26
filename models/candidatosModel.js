@@ -17,14 +17,6 @@ const candidatos = sequelize.define("candidatos", {
         type: Sequelize.STRING,
         allowNull: false
     },
-    // partido_al_que_pertenece: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: false
-    // },
-    // puesto_al_que_aspira: {
-    //     type: Sequelize.INTEGER,
-    //     allowNull: false
-    // },
     foto: {
         type: Sequelize.STRING,
         allowNull: false

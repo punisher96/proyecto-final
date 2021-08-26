@@ -353,7 +353,7 @@ exports.postDeletePartido = (req, res, next) => {
 
 exports.getCandidatos = function(req, res, next) {
 
-    candidatoModel.findAll()
+    candidatoModel.findAll({ include: [{ model: partidosModel }, { model: puestoElectivoModel }] })
         .then((candi) => {
             partidosModel.findAll({ where: { estado: true } })
                 .then((parti) => {
@@ -362,7 +362,11 @@ exports.getCandidatos = function(req, res, next) {
                             const candidatos = candi.map((result) => result.dataValues);
                             const partidos = parti.map((result) => result.dataValues);
                             const puestos = pues.map((result) => result.dataValues);
-
+                            // console.log(candidatos);
+                            // console.log("-----------------------------");
+                            // console.log(partidos);
+                            // console.log("-----------------------------");
+                            // console.log(puestos);
                             res.render("administrador/candidatos-lista", {
                                 pageTitle: "Candidatos",
                                 candidatos: candidatos,
@@ -372,27 +376,10 @@ exports.getCandidatos = function(req, res, next) {
                             });
                         });
                 });
-
-
         })
         .catch((err) => {
             console.log(err);
         });
-    // Promise.all([candidatoModel.findAll(), partidosModel.findAll(), puestoElectivoModel.findAll()]).then(data => {
-    //     const candidatos = data[0].map((result) => result.dataValues);
-    //     const partidos = data[1].map((result) => result.dataValues);
-    //     const puestos = data[2].map((result) => result.dataValues);
-
-    //     res.render("administrador/candidatos-lista", {
-    //         pageTitle: "Candidatos",
-    //         candidatos: candidatos,
-    //         candidatosActive: true,
-    //         partidosAny: partidos.length > 0,
-    //         puestoElectivoAny: puestos.length > 0,
-    //     });
-    // }).catch(error => {
-    //     console.log(error);
-    // });
 };
 
 exports.getAgregarCandidato = function(req, res, next) {
@@ -424,16 +411,17 @@ exports.getAgregarCandidato = function(req, res, next) {
 exports.postAgregarCandidato = function(req, res, next) {
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
-    const partido_al_que_pertenece = req.body.partido_al_que_pertenece;
-    const puesto_al_que_aspira = req.body.puesto_al_que_aspira;
+    const candiPartido = req.body.partidoId;
+    const candiPuesto = req.body.puestoElectivoId;
     const foto = req.file;
 
     candidatoModel.create({
         nombre: nombre,
         apellido: apellido,
-        partido_al_que_pertenece: partido_al_que_pertenece,
-        puesto_al_que_aspira: puesto_al_que_aspira,
-        foto: "/" + foto.path
+        candidatosActive: true,
+        partidoId: candiPartido,
+        puestoElectivoId: candiPuesto,
+        foto: "/" + foto.path,
     }).then((result) => {
         res.redirect("/candidatos");
     }).catch((err) => {
@@ -462,6 +450,7 @@ exports.getEditarCandidato = (req, res, next) => {
                 pageTitle: "Editar candidato",
                 editMode: edit,
                 partido: partido,
+                candidatosActive: true,
                 puesto: puesto,
                 candidato: candidato,
             });
@@ -501,6 +490,7 @@ exports.postEditarCandidato = (req, res, next) => {
                 partido_al_que_pertenece: partido_al_que_pertenece,
                 puesto_al_que_aspira: puesto_al_que_aspira,
                 estado: estado,
+                candidatosActive: true,
                 foto: imagePath
             }, {
                 where: { id: candidatoId }

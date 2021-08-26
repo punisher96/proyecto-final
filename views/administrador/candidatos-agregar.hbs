@@ -21,7 +21,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="partido" class="form-label">Partido al que pertenece</label> 
-                        <select class="form-select" id="puestoElectivoModel" name="partidosModel">
+                        <select class="form-select" id="partidoId" name="partidoId">
                              <option {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
 
                             {{#each partido as |partido|}} 
@@ -36,7 +36,7 @@
 
                     <div class="mb-3">
                         <label for="puesto" class="form-label">Puesto al que aspira</label>
-                        <select class="form-select" id="puestoElectivoModel" name="puestoElectivoModel">
+                        <select class="form-select" id="puestoElectivoId" name="puestoElectivoId">
                              <option {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
 
                             {{#each puesto as |puesto|}} 
@@ -59,8 +59,14 @@
                         <input type="hidden" name="candidatoId" value="{{#if editMode}}{{candidato.id}}{{/if}}">
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-control" id="estado" name="estado">
-                            <option value=1>Activo</option>
-                            <option value=0>Inactivo</option>
+                           {{#if candidato.estado}} 
+                                <option value=1 selected="selected">Activo</option>
+                                <option value=0>Inactivo</option>
+
+                            {{else}}
+                                <option value=1>Activo</option>
+                                <option value=0 selected="selected">Inactivo</option>
+                           {{/if}}
                         </select>
                     </div>
                     {{/if}} 
