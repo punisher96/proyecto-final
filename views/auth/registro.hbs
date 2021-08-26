@@ -11,7 +11,7 @@
         <h4 class="mb-3 text-center">Registro de usuario</h4>
         <form class="needs-validation form-signin" method="POST" novalidate="" action="/registro">
             <div class="row g-3">
-                <div class="col-sm-6">
+                <div class="col-sm-6 form-group">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" placeholder="" name="nombre" value="" required="">
                     <div class="invalid-feedback">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 form-group">
                     <label for="apellido" class="form-label">Apellido</label>
                     <input type="text" class="form-control" id="apellido" placeholder="" name="apellido" value="" required="">
                     <div class="invalid-feedback">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 form-group">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email">
                     <div class="invalid-feedback">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 form-group">
                     <label for="usuario" class="form-label">Usuario</label>
                     <div class="input-group has-validation">
                         <span class="input-group-text">@</span>
@@ -48,17 +48,17 @@
                 </div>
 
 
-                <div class="col-12">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" required="" name="contrasena">
+                <div class="col-12 form-group">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasena" required="" name="contrasena">
                     <div class="invalid-feedback">
                         Introduzca su contraseña.
                     </div>
                 </div>
 
-                <div class="col-12">
-                    <label for="passwordConfirm" class="form-label">Confirme su Contraseña</label>
-                    <input type="password" class="form-control" id="passwordConfirm" required="" name="c_contrasena">
+                <div class="col-12 form-group">
+                    <label for="c_contrasena" class="form-label">Confirme su Contraseña</label>
+                    <input type="password" class="form-control" id="c_contrasena" required="" name="c_contrasena">
                     <div class="invalid-feedback">
                         Introduzca su contraseña de nuevo.
                     </div>
