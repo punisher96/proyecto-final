@@ -22,8 +22,15 @@
                 <div class="card-body">
                     <h5 class="card-title">Nombre del puesto: <br> {{puestos.nombre}}</h5>
                     <h6 class="mb-2 card-subtitle text-muted">Descripcion: {{puestos.descripcion}}</h6>
+
+                    {{#if puestos.estado }}
+                        <span class="badge bg-success float-end">Active</span><br>
+                    {{else}}
+                        <span class="badge bg-danger float-end">Disabled</span><br> 
+                    {{/if}}
+
                     <a href="/editar-puesto-electivo/{{puestos.id}}?edit=true"
-                        class="btn btn-warning">Editar</a>
+                        class="my-3 btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-puesto" method="POST">
                         <input type="hidden" name="puestoId" value="{{puestos.id}}">

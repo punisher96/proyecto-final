@@ -1,0 +1,21 @@
+<section class="container py-5 text-center">
+    <div class="row py-lg-5">
+        <div class="mx-auto col-lg-6 col-md-8">
+            <h1 class="fw-light">Puestos Electivos</h1>
+            <p class="lead text-muted">Aqui se muestra el listado de los puestos electivos por los cuales se puede votar</p>
+            
+        </div>
+    </div>
+</section>
+
+<div class="py-5 album bg-light">
+    <div class="container">
+
+            
+            {{#each puestosElectivos as |puestos|}}
+            <a href="" class="my-3 btn btn-success">Votar por {{puestos.nombre}}</a>
+            {{/each}}
+            
+        
+    </div>
+</div>

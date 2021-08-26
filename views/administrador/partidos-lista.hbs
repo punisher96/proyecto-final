@@ -21,10 +21,17 @@
                 <div class="card-body">
                     <h5 class="card-title">{{partido.nombre}}</h5>
                     <h6 class="card-text">{{partido.descripcion}}</h6>
-                    <a href="/editar-partido/{{partido.id}}?edit=true" class="btn btn-warning">Editar</a>
+
+                    {{#if partido.estado }}
+                        <span class="badge bg-success float-end">Active</span><br>
+                    {{else}}
+                        <span class="badge bg-danger float-end">Disabled</span><br> 
+                    {{/if}}
+                    
+                    <a href="/editar-partido/{{partido.id}}?edit=true" class="my-3 btn btn-warning">Editar</a>
 
                     <form class="form-inline" id="form-delete" action="/delete-partido" method="POST">
-                        <input type="hidden" name="partidoId" value="<%=partido.id%>">
+                        <input type="hidden" name="partidoId" value="{{partido.id}}">
                         <button type="submit" id="" class="btn btn-danger">Eliminar</button>
                     </form> 
                 </div>

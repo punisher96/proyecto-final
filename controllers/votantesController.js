@@ -1,4 +1,10 @@
+const candidato = require("../models/candidatosModel");
+
+const partido = require("../models/partidosModel");
+
 const Ciudadano = require("../models/ciudadanosModel");
+
+const puestos = require("../models/puestoElectivoModel");
 
 exports.Votar = function(req, res, next) {
 
@@ -49,8 +55,47 @@ exports.postVotante = function(req, res, next) {
 };
 
 
-exports.ElegirCandidato = function(req, res, next) {
-    res.render("votantes/mostrarCandidatos", {
-        pageTitle: "Candidatos Activos"
+exports.ElegirCandidato = function (req, res, next) {
+    
+    candidato.findAll({
+        order: [
+            ['nombre', 'ASC']
+        ]
+    }).then((result) => {
+
+        const candidatos = result.map((result) => result.dataValues);
+
+        console.log(candidatos);
+        res.render("votantes/votarCandidatos", {
+        pageTitle: "Candidatos Activos",
+        candidatos: candidatos
+    });
+
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    
+};
+
+exports.getOpcionesVotacion = function(req, res, next) {
+
+    puestos.findAll({
+        order: [
+            ['nombre', 'ASC']
+        ]
+    }).then((result) => {
+
+        const puestos = result.map((result) => result.dataValues);
+
+        console.log(puestos);
+        res.render("votantes/pantallaVotacion", {
+            pageTitle: "Votacion de Puestos Electivos",
+            puestosElectivos: puestos,
+            puestoActive: true,
+        });
+
+    }).catch(function(err) {
+        console.log(err);
     });
 };
