@@ -11,7 +11,7 @@ exports.getHome = function(req, res, next) {
 };
 
 
-//PUESTOS ELECTIVOS
+//#region PUESTOS ELECTIVOS
 exports.getPuestosElectivos = function(req, res, next) {
 
     puestoElectivoModel.findAll({
@@ -113,10 +113,9 @@ exports.postDeletePuesto = (req, res, next) => {
 
 
 };
+//#endregion PUESTOS ELECTIVOS
 
-// //PUESTOS ELECTIVOS
-
-//CIUDADANOS
+//#region CIUDADANOS
 
 
 exports.getCiudadanos = function(req, res, next) {
@@ -226,9 +225,9 @@ exports.postDeleteCiudadano = (req, res, next) => {
 
 };
 
-// CIUDADANOS
+//#endregion CIUDADANOS
 
-//PARTIDOS
+//#region PARTIDOS
 
 exports.getPartidos = function(req, res, next) {
 
@@ -347,9 +346,9 @@ exports.postDeletePartido = (req, res, next) => {
 
 
 };
-// //PARTIDOS
+//#endregion PARTIDOS
 
-//CANDIDATOS
+//#region CANDIDATOS
 
 exports.getCandidatos = function(req, res, next) {
 
@@ -515,9 +514,9 @@ exports.postDeleteCandidato = (req, res, next) => {
 
 
 };
-//CANDIDATOS
+//#endregion CANDIDATOS
 
-//ELECCIONES
+//#region ELECCIONES
 
 exports.getElecciones = function(req, res, next) {
 
@@ -541,6 +540,7 @@ exports.getElecciones = function(req, res, next) {
     });
 };
 
+//#endregion ELECCIONES
 // exports.getAgregarCandidato = function(req, res, next) {
 //     res.render("administrador/candidatos-agregar", {
 //         pageTitle: "Agregar Candidato",
