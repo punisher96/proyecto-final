@@ -6,6 +6,10 @@ const expressHbs = require("express-handlebars"); //Handlebars
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
 const passport = require('passport'); //Para las sesiones SG
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+const methodOverride = require('method-override');
 
 //conecction
 const sequelize = require("./util/database");
@@ -18,6 +22,10 @@ const eleccionesModel = require("./models/eleccionesModel");
 const partidosModel = require("./models/partidosModel");
 const puestoElectivoModel = require("./models/puestoElectivoModel");
 const usuariosModel = require("./models/usuariosModel");
+
+//Variables globales
+
+
 
 //routes 
 const Auth = require("./routes/auth");
@@ -52,6 +60,7 @@ const compareHelpers = require("./util/helpers/hbs/compare");
 app.engine("hbs", expressHbs({
     layoutsDir: 'views/layout/',
     defaultLayout: 'main-layout',
+    partialsDir: path.join(app.get('views'), 'partials'),
     extname: 'hbs',
     helpers: {
         equalValue: compareHelpers.EqualValue,
@@ -74,8 +83,21 @@ app.use(Votantes);
 
 app.use(errorController.get404);
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'mysecretapp',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(flash());
+app.use(methodOverride('_method'));
+
+
+
+
 
 //relaciones
 candidatosModel.belongsTo(partidosModel, { constraint: true, onDelete: "CASCADE" });
