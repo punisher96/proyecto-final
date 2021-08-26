@@ -1,6 +1,6 @@
 const puestoElectivoModel = require("../models/puestoElectivoModel");
 const ciudadanoModel = require("../models/ciudadanosModel");
-const partidosModel = require("../models/partidosModel");
+const partidoModel = require("../models/partidosModel");
 const candidatoModel = require("../models/candidatosModel");
 
 exports.getHome = function(req, res, next) {
@@ -232,7 +232,7 @@ exports.postDeleteCiudadano = (req, res, next) => {
 
 exports.getPartidos = function(req, res, next) {
 
-    partidosModel.findAll({
+    partidoModel.findAll({
         order: [
             ['nombre', 'ASC']
         ]
@@ -265,7 +265,7 @@ exports.postAgregarPartido = function(req, res, next) {
     const logo = req.file;
     const descripcion = req.body.descripcion;
 
-    partidosModel.create({
+    partidoModel.create({
         nombre: nombre,
         logo: "/" + logo.path,
         descripcion: descripcion
@@ -284,7 +284,7 @@ exports.getEditarPartido = (req, res, next) => {
         return res.redirect("/partidos");
     }
 
-    partidosModel.findOne({ where: { id: partidoId } }).then((result) => {
+    partidoModel.findOne({ where: { id: partidoId } }).then((result) => {
         const partido = result.dataValues;
         if (!partido) {
             return res.redirect("/partidos");
@@ -308,7 +308,7 @@ exports.postEditarPartido = (req, res, next) => {
     const partidoId = req.body.partidoId;
     const logo = req.file;
 
-    partidosModel.findOne({ where: { id: partidoId } }).then((result) => {
+    partidoModel.findOne({ where: { id: partidoId } }).then((result) => {
 
         const partido = result.dataValues;
 
@@ -318,7 +318,7 @@ exports.postEditarPartido = (req, res, next) => {
 
         const imagePath = logo ? "/" + logo.path : partido.logo;
 
-        partidosModel.update({
+        partidoModel.update({
                 nombre: nombre,
                 descripcion: descripcion,
                 estado: estado,
@@ -330,16 +330,21 @@ exports.postEditarPartido = (req, res, next) => {
 
         ).then((result) => {
             return res.redirect("/partidos");
+        }).catch((err) => {
+            console.log(err);
         });
     }).catch((err) => {
         console.log(err);
     });
 
+
+
+
 };
 
 exports.postDeletePartido = (req, res, next) => {
     const partidoId = req.body.partidoId;
-    partidosModel.destroy({ where: { id: partidoId } }).then((result) => {
+    partidoModel.destroy({ where: { id: partidoId } }).then((result) => {
         return res.redirect("/partidos");
     }).catch((err) => {
         console.log(err);
@@ -353,35 +358,30 @@ exports.postDeletePartido = (req, res, next) => {
 
 exports.getCandidatos = function(req, res, next) {
 
-    candidatoModel.findAll({ include: [{ model: partidosModel }, { model: puestoElectivoModel }] })
-        .then((result) => {
+    candidatoModel.findAll({
+        order: [
+            ['nombre', 'ASC']
+        ]
+    }).then((result) => {
 
-            const candidatos = result.map((result) => result.dataValues);
+        const candidatos = result.map((result) => result.dataValues);
 
-            console.log(candidatos);
-            res.render("administrador/candidatos-lista", {
-                pageTitle: "Candidatos",
-                candidatos: candidatos,
-                candidatosActive: true,
-            });
-        })
-        .catch((err) => {
-            console.log(err);
+        console.log(candidatos);
+        res.render("administrador/candidatos-lista", {
+            pageTitle: "Candidatos",
+            candidatos: candidatos,
+            candidatosActive: true,
         });
+
+    }).catch(function(err) {
+        console.log(err);
+    });
 };
 
 exports.getAgregarCandidato = function(req, res, next) {
-    Promise.all([partidosModel.findAll(), puestoElectivoModel.findAll()]).then(data => {
-        const partido = data[0].map((result) => result.dataValues);
-        const puesto = data[1].map((result) => result.dataValues);
-        res.render("administrador/candidatos-agregar", {
-            pageTitle: "Agregar Candidato",
-            editMode: false,
-            partido: partido,
-            puesto: puesto,
-        });
-    }).catch(error => {
-        console.log(error);
+    res.render("administrador/candidatos-agregar", {
+        pageTitle: "Agregar Candidato",
+        editMode: false
     });
 };
 
@@ -418,22 +418,11 @@ exports.getEditarCandidato = (req, res, next) => {
         if (!candidato) {
             return res.redirect("/partidos");
         }
-
-        Promise.all([partidosModel.findAll(), puestoElectivoModel.findAll()]).then(data => {
-            const partido = data[0].map((result) => result.dataValues);
-            const puesto = data[1].map((result) => result.dataValues);
-            res.render("administrador/candidatos-agregar", {
-                pageTitle: "Editar candidato",
-                editMode: edit,
-                partido: partido,
-                puesto: puesto,
-                candidato: candidato
-            });
-        }).catch(error => {
-            console.log(error);
+        res.render("administrador/candidatos-agregar", {
+            pageTitle: "Editar candidato",
+            editMode: edit,
+            candidato: candidato
         });
-
-
 
     }).catch((err) => {
         console.log(err);

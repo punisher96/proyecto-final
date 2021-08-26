@@ -18,36 +18,19 @@
                         <input type="text" class="form-control" id="apellido" name="apellido"
                             value="{{#if editMode}}{{candidato.apellido}}{{/if}}">
                     </div>
-                    <div class="mb-3">
-                        <label for="partido" class="form-label">Partido al que pertenece</label> 
-                        <select class="form-select" id="puestoElectivoModel" name="partidosModel">
-                             <option {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
 
-                            {{#each partido as |partido|}} 
-                                {{#if (equalValue partido.id ../candidato.partidoId )}}
-                                    <option selected value="{{partido.id}}">{{partido.nombre}}</option>
-                                {{else}}
-                                    <option value="{{partido.id}}">{{partido.nombre}}</option>
-                                {{/if}} 
-                            {{/each}}  
-                        </select> 
+                    <div class="mb-3">
+                        <label for="partido" class="form-label">Partido al que pertenece</label>
+                        <input type="number" class="form-control" id="partido" name="partido_al_que_pertenece"
+                            value="{{#if editMode}}{{candidato.partido}}{{/if}}">
                     </div>
 
                     <div class="mb-3">
                         <label for="puesto" class="form-label">Puesto al que aspira</label>
-                        <select class="form-select" id="puestoElectivoModel" name="puestoElectivoModel">
-                             <option {{#if editMode}}{{else}}selected{{/if}}>Seleccione una opcion</option>
-
-                            {{#each puesto as |puesto|}} 
-                                {{#if (equalValue puesto.id ../candidato.puestoElectivoId )}}
-                                    <option selected value="{{puesto.id}}">{{puesto.nombre}}</option>
-                                {{else}}
-                                    <option value="{{puesto.id}}">{{puesto.nombre}}</option>
-                                {{/if}} 
-                            {{/each}}  
-                        </select> 
+                        <input type="number" class="form-control" id="puesto" name="puesto_al_que_aspira"
+                            value="{{#if editMode}}{{candidato.puesto}}{{/if}}">
                     </div>
- 
+
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Foto del candidato</label>
                         <input class="form-control" name="ImagePath" type="file" id="formFile" accept="image/png, image/gif, image/jpeg">
