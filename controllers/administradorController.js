@@ -411,17 +411,16 @@ exports.getAgregarCandidato = function(req, res, next) {
 exports.postAgregarCandidato = function(req, res, next) {
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
-    const candiPartido = req.body.partidoId;
-    const candiPuesto = req.body.puestoElectivoId;
+    const candiPartido = req.body.Partido;
+    const candiPuesto = req.body.PuestoElectivo;
     const foto = req.file;
 
     candidatoModel.create({
         nombre: nombre,
         apellido: apellido,
-        candidatosActive: true,
+        foto: "/" + foto.path,
         partidoId: candiPartido,
         puestoElectivoId: candiPuesto,
-        foto: "/" + foto.path,
     }).then((result) => {
         res.redirect("/candidatos");
     }).catch((err) => {
@@ -468,8 +467,8 @@ exports.getEditarCandidato = (req, res, next) => {
 exports.postEditarCandidato = (req, res, next) => {
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
-    const partido_al_que_pertenece = req.body.partido_al_que_pertenece;
-    const puesto_al_que_aspira = req.body.puesto_al_que_aspira;
+    const candiPartido = req.body.Partido;
+    const candiPuesto = req.body.PuestoElectivo;
     const foto = req.file;
     const estado = req.body.estado;
     const candidatoId = req.body.candidatoId;
@@ -487,11 +486,10 @@ exports.postEditarCandidato = (req, res, next) => {
         candidatoModel.update({
                 nombre: nombre,
                 apellido: apellido,
-                partido_al_que_pertenece: partido_al_que_pertenece,
-                puesto_al_que_aspira: puesto_al_que_aspira,
                 estado: estado,
-                candidatosActive: true,
-                foto: imagePath
+                foto: imagePath,
+                partidoId: candiPartido,
+                puestoElectivoId: candiPuesto,
             }, {
                 where: { id: candidatoId }
             }
