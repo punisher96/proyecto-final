@@ -6,6 +6,7 @@ exports.GetRegistro = function(req, res, next) {
     res.render("auth/registro", { pageTitle: "Inicio" });
 };
 
+const passport = require('passport'); //Para utilizar el módulo passport SG
 
 exports.PostRegistro = function(req, res, next) {
     const { nombre, apellido, email, usuario, contrasena, c_contrasena } = req.body;
@@ -25,7 +26,14 @@ exports.PostRegistro = function(req, res, next) {
     if (errors.length > 0) {
         res.render('auth/registro', { errors, nombre, apellido, email, usuario, contrasena, c_contrasena });
     } else {
-        res.send("Nice");
+        passport.authenticate('local.registro', {
+             successRedirect: '/Bienvenido',
+             failureRedirect: '/registro',
+             failureFlash: true
+        })
     }
-
 };
+
+exports.GetBienvenido = function(req, res, next) {
+    res.render('auth/bienvenido', {pageTitle: "Inicio"});
+}

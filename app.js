@@ -5,7 +5,7 @@ const app = express();
 const expressHbs = require("express-handlebars"); //Handlebars 
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
-
+const passport = require('passport'); //Para las sesiones SG
 
 //conecction
 const sequelize = require("./util/database");
@@ -24,6 +24,8 @@ const Auth = require("./routes/auth");
 const administradorRoute = require("./routes/administrador");
 const Votantes = require("./routes/votantes");
 
+
+require('./util/passport');
 
 //controladores
 const errorController = require("./controllers/errorController");
@@ -71,6 +73,9 @@ app.use(Auth);
 app.use(Votantes);
 
 app.use(errorController.get404);
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 //relaciones
 candidatosModel.belongsTo(partidosModel, { constraint: true, onDelete: "CASCADE" });
