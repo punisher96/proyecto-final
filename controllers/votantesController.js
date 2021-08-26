@@ -1,6 +1,6 @@
-
-const ciudadano = require("../models/ciudadanosModel");
 const candidato = require("../models/candidatosModel");
+
+const partido = require("../models/partidosModel");
 
 const Ciudadano = require("../models/ciudadanosModel");
 
@@ -65,9 +65,32 @@ exports.ElegirCandidato = function (req, res, next) {
         const candidatos = result.map((result) => result.dataValues);
 
         console.log(candidatos);
-        res.render("votantes/mostrarCandidatos", {
+        res.render("votantes/votarCandidatos", {
         pageTitle: "Candidatos Activos",
         candidatos: candidatos
+    });
+
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    
+};
+
+exports.ElegirPartido = function (req, res, next) {
+    
+    partido.findAll({
+        order: [
+            ['nombre', 'ASC']
+        ]
+    }).then((result) => {
+
+        const partidos = result.map((result) => result.dataValues);
+
+        console.log(partidos);
+        res.render("votantes/votarPartidos", {
+        pageTitle: "partidos Activos",
+        partidos: partidos
     });
 
     }).catch(function(err) {
