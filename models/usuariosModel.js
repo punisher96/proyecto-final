@@ -21,11 +21,11 @@ const usuarios = sequelize.define("usuarios", {
         type: Sequelize.STRING,
         allowNull: false
     },
-    nombre_de_usuario: {
+    usuario: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    password: {
+    contrasena: {
         type: Sequelize.STRING,
         allowNull: false
     },
