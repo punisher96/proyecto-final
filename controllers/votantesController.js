@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 const ciudadano = require("../models/ciudadanosModel");
 const candidato = require("../models/candidatosModel");
-=======
+
 const Ciudadano = require("../models/ciudadanosModel");
->>>>>>> f317faf68c336380d1462d9069f520df33f035bd
+
 
 exports.Votar = function(req, res, next) {
 
