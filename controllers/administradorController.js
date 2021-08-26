@@ -464,7 +464,6 @@ exports.getEditarCandidato = (req, res, next) => {
                 partido: partido,
                 puesto: puesto,
                 candidato: candidato,
-                activo: candidato.estado
             });
         }).catch(error => {
             console.log(error);
