@@ -31,8 +31,13 @@
                     <div class="mb-3">
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-control" id="estado" name="estado">
-                            <option value=1>Activo</option>
-                            <option value=0>Inactivo</option>
+                          {{#if partido.estado}}
+                                <option value=1 selected>Activo</option>
+                                <option value=0>Inactivo</option>
+                            {{else}}
+                                <option value=1>Activo</option>
+                                <option value=0 selected>Inactivo</option>
+                           {{/if}}
                         </select>
                     </div>
                     {{/if }}

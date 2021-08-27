@@ -13,12 +13,12 @@
     </div>
 </section>
 
-<div class="py-5 album bg-light">
-    <div class="container">
-
+{{#if puestosElectivos}}
+    <div class="py-5 album bg-light">
+    <div class="container"> 
         <div class="row">
             {{#each puestosElectivos as |puestos|}} 
-            <div class="card col-md-3">
+            <div class="m-2 card col-md-3">
                 <div class="card-body">
                     <h5 class="card-title">Nombre del puesto: <br> {{puestos.nombre}}</h5>
                     <h6 class="mb-2 card-subtitle text-muted">Descripcion: {{puestos.descripcion}}</h6>
@@ -42,4 +42,9 @@
         </div>
     </div>
 </div> 
+{{else}}
+<div class="alert alert-warning" role="alert">
+   No hay Puestos electivos 
+</div>
+{{/if}}
  

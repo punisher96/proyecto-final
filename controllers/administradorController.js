@@ -2,6 +2,7 @@ const puestoElectivoModel = require("../models/puestoElectivoModel");
 const ciudadanoModel = require("../models/ciudadanosModel");
 const partidosModel = require("../models/partidosModel");
 const candidatoModel = require("../models/candidatosModel");
+const eleccionesModel = require("../models/eleccionesModel");
 
 exports.getHome = function(req, res, next) {
     res.render("administrador/indexAdministrador", {
@@ -521,126 +522,130 @@ exports.postDeleteCandidato = (req, res, next) => {
 
 exports.getElecciones = function(req, res, next) {
 
-    candidatoModel.findAll({
-        order: [
-            ['nombre', 'ASC']
-        ]
-    }).then((result) => {
+    eleccionesModel.findAll()
+        .then((elecio) => {
+            candidatoModel.findAll({ where: { estado: true } })
+                .then((candi) => {
+                    eleccionesModel.findAll({ where: { estado: true } })
+                        .then((elecioActivas) => {
+                            const eleccones = elecio.map((result) => result.dataValues);
+                            const candidatos = candi.map((result) => result.dataValues);
+                            const elecionActive = elecioActivas.map((result) => result.dataValues);
 
-        // const candidatos = result.map((result) => result.dataValues);
-
-        // console.log(candidatos);
-        res.render("administrador/candidatos-lista", {
-            pageTitle: "Candidatos",
-            candidatos: candidatos,
-            candidatosActive: true,
+                            res.render("administrador/elecciones/elecciones-lista", {
+                                pageTitle: "Candidatos",
+                                eleccionesActive: true,
+                                hasEleccionActive: elecionActive.length > 1,
+                                candidat2sActivos: candidatos.length > 1,
+                                elecionActive: elecionActive.length > 0,
+                                eleccones: eleccones,
+                                hayElecciones: eleccones.length > 0,
+                            });
+                        }).catch(function(err) {
+                            console.log(err);
+                        });
+                }).catch(function(err) {
+                    console.log(err);
+                });
+        }).catch(function(err) {
+            console.log(err);
         });
+};
 
-    }).catch(function(err) {
+exports.getAgregarElecciones = function(req, res, next) {
+    candidatoModel.findAll({ where: { estado: true } })
+        .then((candi) => {
+            const candidatos = candi.map((result) => result.dataValues);
+
+            res.render("administrador/elecciones/elecciones-agregar", {
+                pageTitle: "Agregar elecciones",
+                editMode: false,
+                eleccionesActive: true,
+                candidat2sActivos: candidatos.length > 1
+            });
+        }).catch(function(err) {
+            console.log(err);
+        });
+};
+
+exports.postAgregarElecciones = function(req, res, next) {
+    const nombre = req.body.nombre;
+    const fecha = req.body.fechaRealización;
+
+    eleccionesModel.create({
+        nombre: nombre,
+        fecha: fecha,
+
+    }).then((result) => {
+        res.redirect("/elecciones");
+    }).catch((err) => {
         console.log(err);
     });
 };
 
-// exports.getAgregarCandidato = function(req, res, next) {
-//     res.render("administrador/candidatos-agregar", {
-//         pageTitle: "Agregar Candidato",
-//         editMode: false
-//     });
-// };
+exports.getEditarElecciones = (req, res, next) => {
+    const edit = req.query.edit;
+    const eleccionId = req.params.eleccionId;
 
-// exports.postAgregarCandidato = function(req, res, next) {
-//     const nombre = req.body.nombre;
-//     const apellido = req.body.apellido;
-//     const partido_al_que_pertenece = req.body.partido_al_que_pertenece;
-//     const puesto_al_que_aspira = req.body.puesto_al_que_aspira;
-//     const foto = req.file;
+    if (!edit) {
+        return res.redirect("/candidatos");
+    }
 
-//     candidatoModel.create({
-//         nombre: nombre,
-//         apellido: apellido,
-//         partido_al_que_pertenece: partido_al_que_pertenece,
-//         puesto_al_que_aspira: puesto_al_que_aspira,
-//         foto: "/" + foto.path
-//     }).then((result) => {
-//         res.redirect("/candidatos");
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-// };
+    eleccionesModel.findOne({ where: { id: eleccionId } }).then((result) => {
+        const elecciones = result.dataValues;
+        if (!elecciones) {
+            return res.redirect("/elecciones");
+        }
+        res.render("administrador/elecciones/elecciones-agregar", {
+            pageTitle: "Editar candidato",
+            eleccionesActive: true,
+            editMode: edit,
+            elecciones: elecciones
+        });
 
-// exports.getEditarCandidato = (req, res, next) => {
-//     const edit = req.query.edit;
-//     const candidatoId = req.params.candidatoId;
+    }).catch((err) => {
+        console.log(err);
+    });
+};
 
-//     if (!edit) {
-//         return res.redirect("/candidatos");
-//     }
+exports.postEditarElecciones = (req, res, next) => {
+    const nombre = req.body.nombre;
+    const fecha = req.body.fechaRealización;
+    const estado = req.body.estado;
+    const eleccionId = req.body.eleccionId;
 
-//     candidatoModel.findOne({ where: { id: candidatoId } }).then((result) => {
-//         const candidato = result.dataValues;
-//         if (!candidato) {
-//             return res.redirect("/partidos");
-//         }
-//         res.render("administrador/candidatos-agregar", {
-//             pageTitle: "Editar candidato",
-//             editMode: edit,
-//             candidato: candidato
-//         });
+    eleccionesModel.findOne({ where: { id: eleccionId } }).then((result) => {
 
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-// };
+        const elecciones = result.dataValues;
 
-// exports.postEditarCandidato = (req, res, next) => {
-//     const nombre = req.body.nombre;
-//     const apellido = req.body.apellido;
-//     const partido_al_que_pertenece = req.body.partido_al_que_pertenece;
-//     const puesto_al_que_aspira = req.body.puesto_al_que_aspira;
-//     const foto = req.file;
-//     const estado = req.body.estado;
-//     const candidatoId = req.body.candidatoId;
+        if (!elecciones) {
+            return res.redirect("/elecciones");
+        }
+        eleccionesModel.update({
+                nombre: nombre,
+                fecha: fecha,
+                estado: estado,
+            }, {
+                where: { id: eleccionId }
+            }
 
-//     candidatoModel.findOne({ where: { id: candidatoId } }).then((result) => {
+        ).then((result) => {
+            return res.redirect("/elecciones");
+        }).catch((err) => {
+            console.log(err);
+        });
+    }).catch((err) => {
+        console.log(err);
+    });
 
-//         const candidato = result.dataValues;
+};
 
-//         if (!candidato) {
-//             return res.redirect("/candidatos");
-//         }
-
-//         const imagePath = foto ? "/" + foto.path : candidato.foto;
-
-//         candidatoModel.update({
-//                 nombre: nombre,
-//                 apellido: apellido,
-//                 partido_al_que_pertenece: partido_al_que_pertenece,
-//                 puesto_al_que_aspira: puesto_al_que_aspira,
-//                 estado: estado,
-//                 foto: imagePath
-//             }, {
-//                 where: { id: candidatoId }
-//             }
-
-//         ).then((result) => {
-//             return res.redirect("/candidatos");
-//         }).catch((err) => {
-//             console.log(err);
-//         });
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-
-// };
-
-// exports.postDeleteCandidato = (req, res, next) => {
-//     const candidatoId = req.body.candidatoId;
-//     candidatoModel.destroy({ where: { id: candidatoId } }).then((result) => {
-//         return res.redirect("/candidatos");
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-
-
-// };
+exports.postDeleteElecciones = (req, res, next) => {
+    const eleccionId = req.body.eleccionId;
+    eleccionesModel.destroy({ where: { id: eleccionId } }).then((result) => {
+        return res.redirect("/elecciones");
+    }).catch((err) => {
+        console.log(err);
+    });
+};
 // //ELECCIONES

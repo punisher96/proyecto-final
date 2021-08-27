@@ -40,14 +40,14 @@ router.post("/delete-candidato", administradorController.postDeleteCandidato);
 //CANDIDATOS
 
 //ELECCIONES
-// router.get("/elecciones", administradorController.getElecciones);
-// router.get("/agregarElecciones", administradorController.);
+router.get("/elecciones", administradorController.getElecciones);
+router.get("/agregar-elecciones", administradorController.getAgregarElecciones);
+router.post("/agregar-elecciones", administradorController.postAgregarElecciones);
 
-// router.post("/agregar-elecciones", administradorController.);
-// router.get("/editar-elecciones/:eleccionId", administradorController.);
-// router.post("/editar-elecciones", administradorController.);
+router.get("/editar-elecciones/:eleccionId", administradorController.getEditarElecciones);
+router.post("/editar-elecciones", administradorController.postEditarElecciones);
 
-// router.post("/delete-elecciones", administradorController.);
+router.post("/delete-elecciones", administradorController.postDeleteElecciones);
 // //ELECCIONES
 
 module.exports = router;
