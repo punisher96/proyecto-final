@@ -64,7 +64,7 @@ exports.PostRegistro = async function(req, res, next) {
              
     if (errors.length > 0) {
         res.render('auth/registro', {errors, nombre, apellido, email, usuario, contrasena, c_contrasena});        
-    } 
+    } else{
 
     // if(emailUser){            
     //     // res.redirect('/registro'); 
@@ -77,6 +77,7 @@ exports.PostRegistro = async function(req, res, next) {
 
         // newUser.contrasena = await newUser.helpers.encryptPassword(contrasena)
     // }
+    }
 };
 
 exports.GetBienvenido = function(req, res, next) {

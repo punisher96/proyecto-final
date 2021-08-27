@@ -33,7 +33,7 @@ passport.use('local.login', new LocalStrategy({
 }, async (req, usuario, contrasena, done) =>{
 
     console.log(req.body);
-    const rows = await prueb.query('SELECT * FROM usuarios WHERE usuario = ?', [usuario]);
+    const rows = await prueb.query('SELECT * FROM usuarios WHERE usuarios.usuario = ?', [usuario]);
     if (rows.length > 0){
         const user = rows[0];
         const validPassword = helpers.matchPassword(contrasena, user.contrasena);
