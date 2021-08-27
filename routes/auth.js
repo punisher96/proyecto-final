@@ -6,5 +6,6 @@ router.get("/login", authController.Login);
 router.get("/registro", authController.GetRegistro);
 router.get("/bienvenido", authController.GetBienvenido);
 router.post("/registro", authController.PostRegistro);
+router.post("/login", authController.PostLogin);
 
 module.exports = router;
