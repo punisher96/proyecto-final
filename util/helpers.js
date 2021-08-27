@@ -10,7 +10,7 @@
 
  helpers.matchPassword = async (contrasena, savedContrasena) => {
     try{
-        await bcrypt.compare(contrasena, savedContrasena);
+       return await bcrypt.compare(contrasena, savedContrasena);
     } catch(e) {
         console.log(e)
     }
